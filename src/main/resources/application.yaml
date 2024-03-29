@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: EcoCity
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: roo
+    password: 123
+    url: jdbc:postgresql://localhost:5432/eco_city_db
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+token:
+  secret: esytbcwEYBUCWEFYTIUYTIU3352
+server:
+  servlet:
+    context-path: /api
