@@ -29,11 +29,4 @@ public interface CrudDatabaseService<T, ID> {
      * @param object сущость
      */
     void delete(T object);
-
-    /**
-     * Обновление сущности в бд
-     *
-     * @param object сущность
-     */
-    void update(T object);
 }

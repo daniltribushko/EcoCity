@@ -42,11 +42,6 @@ public class DBServiceUserImp implements DBServiceUser {
     }
 
     @Override
-    public void update(User object) {
-        save(object);
-    }
-
-    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return findByEmail(email);
     }
