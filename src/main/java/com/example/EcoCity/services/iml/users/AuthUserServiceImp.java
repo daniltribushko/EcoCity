@@ -1,5 +1,6 @@
 package com.example.EcoCity.services.iml.users;
 
+import com.example.EcoCity.exceptions.users.PasswordNotConfirmedException;
 import com.example.EcoCity.exceptions.users.UserAlreadyExistException;
 import com.example.EcoCity.models.dto.request.SignInRequest;
 import com.example.EcoCity.models.dto.request.SignUpRequest;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -54,12 +56,17 @@ public class AuthUserServiceImp implements AuthUserService {
         if (dbServiceUser.existByEmail(email)) {
             throw new UserAlreadyExistException(email);
         }
+        String password = request.getPassword();
+        String confirmPassword = request.getConfirmPassword();
+        if (!Objects.equals(password, confirmPassword)){
+            throw new PasswordNotConfirmedException();
+        }
         User user = new User()
                 .builder()
                 .email(email)
                 .surname(request.getSurname())
                 .name(request.getName())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(passwordEncoder.encode(password))
                 .createDate(LocalDateTime.now())
                 .recordState(RecordState.ACTIVE)
                 .lastOnlineDate(LocalDateTime.now())
