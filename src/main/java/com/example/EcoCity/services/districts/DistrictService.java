@@ -3,7 +3,9 @@ package com.example.EcoCity.services.districts;
 import com.example.EcoCity.models.dto.request.DistrictRequest;
 import com.example.EcoCity.models.dto.response.DistrictResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author Tribushko Danil
@@ -18,7 +20,10 @@ public interface DistrictService {
      * @param request запрос на создание района
      * @return dto ответа района
      */
-    DistrictResponse create(@Valid
+    DistrictResponse create(@Email
+                            @Size(min = 7, message = "Email must be contain 7 characters")
+                            String email,
+                            @Valid
                             DistrictRequest request);
 
     /**
@@ -27,14 +32,19 @@ public interface DistrictService {
      * @param id идентификатор района
      * @return dto ответа района
      */
-    DistrictResponse findById(Integer id);
+    DistrictResponse findById(@Min(value = 1, message = "Id can not be less than 1")
+                              Integer id);
 
     /**
      * Удаление района
      *
      * @param id идентификатор района
      */
-    void delete(Integer id);
+    void delete(@Email
+                @Size(min = 7, message = "Email must be contain 7 characters")
+                String email,
+                @Min(value = 1, message = "Id can not be less than 1")
+                Integer id);
 
     /**
      * Обновление района
@@ -42,7 +52,10 @@ public interface DistrictService {
      * @param request запрос на обновление района
      * @return dto ответа района
      */
-    DistrictResponse update(@Min(value = 1, message = "Id can not be less than 1")
+    DistrictResponse update(@Email
+                            @Size(min = 7, message = "Email must be contain 7 characters")
+                            String email,
+                            @Min(value = 1, message = "Id can not be less than 1")
                             Integer id,
                             @Valid
                             DistrictRequest request);
