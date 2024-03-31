@@ -38,7 +38,13 @@ public class OpenApiConfig {
                 .tags(List.of(
                         new Tag()
                                 .name("Auth Controller")
-                                .description("Controller for users authorization and registration")
+                                .description("Controller for users authorization and registration"),
+                        new Tag()
+                                .name("Micro district Controller")
+                                .description("Controller for work with micro districts"),
+                        new Tag()
+                                .name("District Controller")
+                                .description("Controller for work with districts")
                 ));
     }
 }

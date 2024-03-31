@@ -34,7 +34,7 @@ public class DistrictServiceImp implements DistrictService {
         }
         District district = new District(name);
         dbServiceDistrict.save(district);
-        return DistrictResponse.mapFromEntity(district);
+        return new DistrictResponse(district.getId(), district.getName(), null);
     }
 
     @Override
