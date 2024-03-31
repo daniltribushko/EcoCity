@@ -16,8 +16,7 @@ public class MicroDistrict {
     @JoinColumn(name = "district_id")
     private District district;
 
-    public MicroDistrict(Integer id, String name, District district) {
-        this.id = id;
+    public MicroDistrict(String name, District district) {
         this.name = name;
         this.district = district;
     }

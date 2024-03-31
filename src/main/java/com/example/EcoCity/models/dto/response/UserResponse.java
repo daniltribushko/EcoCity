@@ -150,7 +150,7 @@ public class UserResponse {
         return new UserResponse()
                 .builder()
                 .id(user.getId())
-                .email(user.getEmail())
+                .email(user.getUsername())
                 .surname(user.getSurname())
                 .name(user.getName())
                 .recordState(user.getRecordState())

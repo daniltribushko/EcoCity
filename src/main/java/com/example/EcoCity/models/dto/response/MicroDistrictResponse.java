@@ -1,5 +1,6 @@
 package com.example.EcoCity.models.dto.response;
 
+import com.example.EcoCity.models.entities.MicroDistrict;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -35,5 +36,9 @@ public class MicroDistrictResponse {
 
     public String getName() {
         return name;
+    }
+
+    public static MicroDistrictResponse mapFromEntity(MicroDistrict microDistrict){
+        return new MicroDistrictResponse(microDistrict.getId(), microDistrict.getName());
     }
 }

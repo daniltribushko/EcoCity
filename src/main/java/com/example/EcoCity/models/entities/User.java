@@ -173,10 +173,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -231,5 +227,16 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isAdmin(){
+        boolean result = false;
+        for (Role role : roles){
+            if (Objects.equals(role.getName(), "ADMIN")){
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }

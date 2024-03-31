@@ -33,7 +33,7 @@ public class JwtTokenServiceImp implements JwtTokenService {
         Date expiredDate = new Date(issueDate.getTime() + 1000 * 3600 * 24);
         return Jwts
                 .builder()
-                .subject(user.getEmail())
+                .subject(user.getUsername())
                 .claims(claims)
                 .signWith(getKey())
                 .issuedAt(issueDate)
@@ -51,7 +51,7 @@ public class JwtTokenServiceImp implements JwtTokenService {
     public boolean isTokenValid(String token, User user) {
         Claims claims = getAllClaims(token);
         Date expirationDate = claims.getExpiration();
-        return Objects.equals(user.getEmail(), claims.getSubject()) && expirationDate.after(new Date());
+        return Objects.equals(user.getUsername(), claims.getSubject()) && expirationDate.after(new Date());
     }
 
     private Claims getAllClaims(String token) {
