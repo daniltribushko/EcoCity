@@ -36,6 +36,10 @@ public class DistrictResponse {
         this.microDistricts = microDistricts;
     }
 
+    public DistrictResponse(Integer id, String name){
+        this.id = id;
+        this.name = name;
+    }
 
     public DistrictResponse() {
     }

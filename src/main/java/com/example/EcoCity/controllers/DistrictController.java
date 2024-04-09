@@ -63,7 +63,7 @@ public class DistrictController {
                 .body(response);
     }
 
-    @Operation(summary = "Update district", description = "Update micro district, secured by admin")
+    @Operation(summary = "Update district", description = "Update district, secured by admin")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "District updated",
                     content = @Content(mediaType = "application/json",

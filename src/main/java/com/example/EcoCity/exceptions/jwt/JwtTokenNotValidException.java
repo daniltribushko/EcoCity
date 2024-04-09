@@ -8,6 +8,6 @@ import com.example.EcoCity.exceptions.GlobalAppException;
  */
 public class JwtTokenNotValidException extends GlobalAppException {
     public JwtTokenNotValidException() {
-        super(409, "Token is not valid");
+        super(401, "Token is not valid");
     }
 }
