@@ -52,6 +52,8 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Appeal> appeals;
     public static class Builder{
         private Long id;
         private String email;
@@ -62,6 +64,7 @@ public class User implements UserDetails {
         private LocalDateTime createDate;
         private LocalDateTime lastOnlineDate;
         private Set<Role> roles;
+        private Set<Appeal> appeals;
 
         private Builder(){}
         public Builder id(Long id){
@@ -109,6 +112,11 @@ public class User implements UserDetails {
             return this;
         }
 
+        public Builder appeals(Set<Appeal> appeals){
+            this.appeals = appeals;
+            return this;
+        }
+
         public User build(){
             User user = new User();
             user.id = this.id;
@@ -120,6 +128,7 @@ public class User implements UserDetails {
             user.createDate = this.createDate;
             user.lastOnlineDate = this.lastOnlineDate;
             user.roles = this.roles;
+            user.appeals = this.appeals;
             return user;
         }
     }
@@ -227,6 +236,14 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Appeal> getAppeals() {
+        return appeals;
+    }
+
+    public void setAppeals(Set<Appeal> appeals) {
+        this.appeals = appeals;
     }
 
     public boolean isAdmin(){
