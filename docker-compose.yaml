@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: eco_city_db
+    image: postgres
+    restart: always
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=eco_city_db
+    ports:
+      - "5432:5433"
+  app:
+    container_name: eco_city_api
+    image: daniltribushko26/ecocity2024
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/eco_city_db
+      - SERVER_SERVLET_CONTEXT-PATH=/api
+      - TOKEN_SECRET=ecgceybFHGJFAVfavxafARC435ivucqvuzuUWCWrcdyxav3124571xv=
