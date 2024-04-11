@@ -44,7 +44,10 @@ public class OpenApiConfig {
                                 .description("Controller for work with micro districts"),
                         new Tag()
                                 .name("District Controller")
-                                .description("Controller for work with districts")
+                                .description("Controller for work with districts"),
+                        new Tag()
+                                .name("Appeal Type Controller")
+                                .description("Appeal Type Controller for work with appeals types")
                 ));
     }
 }
