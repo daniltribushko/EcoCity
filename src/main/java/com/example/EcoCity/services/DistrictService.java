@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.districts;
+package com.example.EcoCity.services;
 
 import com.example.EcoCity.models.dto.request.DistrictRequest;
 import com.example.EcoCity.models.dto.response.DistrictResponse;

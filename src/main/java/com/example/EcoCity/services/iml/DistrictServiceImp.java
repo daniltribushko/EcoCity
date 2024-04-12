@@ -1,12 +1,12 @@
-package com.example.EcoCity.services.iml.district;
+package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.aspects.annotations.CheckUserAdmin;
 import com.example.EcoCity.exceptions.districts.DistrictAlreadyExistException;
 import com.example.EcoCity.models.dto.request.DistrictRequest;
 import com.example.EcoCity.models.dto.response.DistrictResponse;
 import com.example.EcoCity.models.entities.District;
-import com.example.EcoCity.services.districts.DBServiceDistrict;
-import com.example.EcoCity.services.districts.DistrictService;
+import com.example.EcoCity.services.db.DBServiceDistrict;
+import com.example.EcoCity.services.DistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

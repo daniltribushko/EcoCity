@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.appeals;
+package com.example.EcoCity.services;
 
 import com.example.EcoCity.models.dto.request.AppealTypeRequest;
 import com.example.EcoCity.models.dto.response.AppealResponse;

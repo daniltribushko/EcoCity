@@ -1,9 +1,9 @@
-package com.example.EcoCity.services.iml.microdistricts;
+package com.example.EcoCity.services.db.imp;
 
 import com.example.EcoCity.exceptions.microdistricts.MicroDistrictByIdNotFoundException;
 import com.example.EcoCity.models.entities.MicroDistrict;
 import com.example.EcoCity.repositories.MicroDistrictRepository;
-import com.example.EcoCity.services.microdistricts.DBServiceMicroDistrict;
+import com.example.EcoCity.services.db.DBServiceMicroDistrict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

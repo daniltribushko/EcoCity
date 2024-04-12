@@ -5,7 +5,7 @@ import com.example.EcoCity.models.dto.request.MicroDistrictRequest;
 import com.example.EcoCity.models.dto.response.DistrictResponse;
 import com.example.EcoCity.models.dto.response.ExceptionResponse;
 import com.example.EcoCity.models.dto.response.MicroDistrictResponse;
-import com.example.EcoCity.services.microdistricts.MicroDistrictService;
+import com.example.EcoCity.services.MicroDistrictService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

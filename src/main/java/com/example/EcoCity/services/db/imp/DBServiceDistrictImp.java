@@ -1,9 +1,9 @@
-package com.example.EcoCity.services.iml.district;
+package com.example.EcoCity.services.db.imp;
 
 import com.example.EcoCity.exceptions.districts.DistrictByIdNotFoundException;
 import com.example.EcoCity.models.entities.District;
 import com.example.EcoCity.repositories.DistrictRepository;
-import com.example.EcoCity.services.districts.DBServiceDistrict;
+import com.example.EcoCity.services.db.DBServiceDistrict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

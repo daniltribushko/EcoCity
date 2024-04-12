@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.users;
+package com.example.EcoCity.services;
 
 import com.example.EcoCity.models.dto.request.SignInRequest;
 import com.example.EcoCity.models.dto.request.SignUpRequest;

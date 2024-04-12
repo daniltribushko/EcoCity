@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.iml.users;
+package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.exceptions.users.PasswordNotConfirmedException;
 import com.example.EcoCity.exceptions.users.UserAlreadyExistException;
@@ -10,8 +10,8 @@ import com.example.EcoCity.models.entities.User;
 import com.example.EcoCity.models.enums.RecordState;
 import com.example.EcoCity.services.JwtTokenService;
 import com.example.EcoCity.services.RoleService;
-import com.example.EcoCity.services.users.AuthUserService;
-import com.example.EcoCity.services.users.DBServiceUser;
+import com.example.EcoCity.services.AuthUserService;
+import com.example.EcoCity.services.db.DBServiceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

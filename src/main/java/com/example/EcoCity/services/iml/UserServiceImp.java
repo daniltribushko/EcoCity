@@ -1,10 +1,10 @@
-package com.example.EcoCity.services.iml.users;
+package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.models.dto.request.UpdateUserRequest;
 import com.example.EcoCity.models.dto.response.UserResponse;
 import com.example.EcoCity.models.entities.User;
-import com.example.EcoCity.services.users.DBServiceUser;
-import com.example.EcoCity.services.users.UserService;
+import com.example.EcoCity.services.db.DBServiceUser;
+import com.example.EcoCity.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

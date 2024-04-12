@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.iml.microdistricts;
+package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.aspects.annotations.CheckUserAdmin;
 import com.example.EcoCity.exceptions.microdistricts.MicroDistrictAlreadyExistException;
@@ -8,9 +8,9 @@ import com.example.EcoCity.models.dto.response.DistrictResponse;
 import com.example.EcoCity.models.dto.response.MicroDistrictResponse;
 import com.example.EcoCity.models.entities.District;
 import com.example.EcoCity.models.entities.MicroDistrict;
-import com.example.EcoCity.services.districts.DBServiceDistrict;
-import com.example.EcoCity.services.microdistricts.DBServiceMicroDistrict;
-import com.example.EcoCity.services.microdistricts.MicroDistrictService;
+import com.example.EcoCity.services.db.DBServiceDistrict;
+import com.example.EcoCity.services.db.DBServiceMicroDistrict;
+import com.example.EcoCity.services.MicroDistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

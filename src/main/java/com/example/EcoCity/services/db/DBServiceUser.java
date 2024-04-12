@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.users;
+package com.example.EcoCity.services.db;
 
 import com.example.EcoCity.models.entities.User;
 import com.example.EcoCity.services.CrudDatabaseService;

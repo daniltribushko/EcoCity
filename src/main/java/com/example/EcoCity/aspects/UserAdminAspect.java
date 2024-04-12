@@ -2,7 +2,7 @@ package com.example.EcoCity.aspects;
 
 import com.example.EcoCity.exceptions.users.UserNotAdminException;
 import com.example.EcoCity.models.entities.User;
-import com.example.EcoCity.services.users.DBServiceUser;
+import com.example.EcoCity.services.db.DBServiceUser;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.example.EcoCity.models.dto.request.SignUpRequest;
 import com.example.EcoCity.models.dto.response.ExceptionResponse;
 import com.example.EcoCity.models.dto.response.JwtTokenResponse;
 import com.example.EcoCity.models.dto.response.UserResponse;
-import com.example.EcoCity.services.users.AuthUserService;
+import com.example.EcoCity.services.AuthUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

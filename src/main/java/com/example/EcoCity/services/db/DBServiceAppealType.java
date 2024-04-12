@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.appeals;
+package com.example.EcoCity.services.db;
 
 import com.example.EcoCity.models.entities.AppealType;
 import com.example.EcoCity.services.CrudDatabaseService;

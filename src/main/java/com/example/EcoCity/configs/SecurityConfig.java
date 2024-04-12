@@ -1,6 +1,6 @@
 package com.example.EcoCity.configs;
 
-import com.example.EcoCity.services.users.DBServiceUser;
+import com.example.EcoCity.services.db.DBServiceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

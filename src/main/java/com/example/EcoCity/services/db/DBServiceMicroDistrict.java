@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.microdistricts;
+package com.example.EcoCity.services.db;
 
 import com.example.EcoCity.models.entities.MicroDistrict;
 import com.example.EcoCity.services.CrudDatabaseService;

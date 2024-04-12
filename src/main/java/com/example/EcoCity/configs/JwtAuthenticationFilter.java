@@ -3,7 +3,7 @@ package com.example.EcoCity.configs;
 import com.example.EcoCity.exceptions.jwt.JwtTokenNotValidException;
 import com.example.EcoCity.models.entities.User;
 import com.example.EcoCity.services.JwtTokenService;
-import com.example.EcoCity.services.users.DBServiceUser;
+import com.example.EcoCity.services.db.DBServiceUser;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

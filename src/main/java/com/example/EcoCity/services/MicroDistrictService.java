@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.microdistricts;
+package com.example.EcoCity.services;
 
 import com.example.EcoCity.models.dto.request.CreateMicroDistrictRequest;
 import com.example.EcoCity.models.dto.request.MicroDistrictRequest;

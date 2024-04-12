@@ -1,4 +1,4 @@
-package com.example.EcoCity.services.iml.appeals;
+package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.aspects.annotations.CheckUserAdmin;
 import com.example.EcoCity.exceptions.appeals.AppealTypeAlreadyExistException;
@@ -8,8 +8,8 @@ import com.example.EcoCity.models.dto.response.AppealTypeResponse;
 import com.example.EcoCity.models.dto.response.AppealsResponse;
 import com.example.EcoCity.models.entities.Appeal;
 import com.example.EcoCity.models.entities.AppealType;
-import com.example.EcoCity.services.appeals.AppealTypeService;
-import com.example.EcoCity.services.appeals.DBServiceAppealType;
+import com.example.EcoCity.services.AppealTypeService;
+import com.example.EcoCity.services.db.DBServiceAppealType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

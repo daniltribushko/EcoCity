@@ -1,9 +1,9 @@
-package com.example.EcoCity.services.iml.users;
+package com.example.EcoCity.services.db.imp;
 
 import com.example.EcoCity.exceptions.users.UserByEmailNotFoundException;
 import com.example.EcoCity.exceptions.users.UserByIdNotFoundException;
 import com.example.EcoCity.models.entities.User;
-import com.example.EcoCity.services.users.DBServiceUser;
+import com.example.EcoCity.services.db.DBServiceUser;
 import com.example.EcoCity.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

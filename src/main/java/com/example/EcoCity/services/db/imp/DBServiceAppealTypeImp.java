@@ -1,9 +1,9 @@
-package com.example.EcoCity.services.iml.appeals;
+package com.example.EcoCity.services.db.imp;
 
 import com.example.EcoCity.exceptions.appeals.AppealTypeByIdNotFoundException;
 import com.example.EcoCity.models.entities.AppealType;
 import com.example.EcoCity.repositories.AppealTypeRepository;
-import com.example.EcoCity.services.appeals.DBServiceAppealType;
+import com.example.EcoCity.services.db.DBServiceAppealType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

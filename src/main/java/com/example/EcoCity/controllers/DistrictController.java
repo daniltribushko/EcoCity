@@ -3,7 +3,7 @@ package com.example.EcoCity.controllers;
 import com.example.EcoCity.models.dto.request.DistrictRequest;
 import com.example.EcoCity.models.dto.response.DistrictResponse;
 import com.example.EcoCity.models.dto.response.ExceptionResponse;
-import com.example.EcoCity.services.districts.DistrictService;
+import com.example.EcoCity.services.DistrictService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
