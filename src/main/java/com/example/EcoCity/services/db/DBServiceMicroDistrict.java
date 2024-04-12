@@ -1,7 +1,6 @@
 package com.example.EcoCity.services.db;
 
 import com.example.EcoCity.models.entities.MicroDistrict;
-import com.example.EcoCity.services.CrudDatabaseService;
 
 /**
  * @author Tribushko Danil
@@ -11,10 +10,9 @@ import com.example.EcoCity.services.CrudDatabaseService;
  */
 public interface DBServiceMicroDistrict extends CrudDatabaseService<MicroDistrict, Integer> {
     /**
-     * Проверка существует ли микрорайон в бд с указанным названием
+     * Обновление микрорайона в бд
      *
-     * @param name название микрорайона
-     * @return находится ли микрорайон с указанным названием в бд
+     * @param microDistrict сущность микрорайона
      */
-    boolean existByName(String name);
+    void update(MicroDistrict microDistrict);
 }

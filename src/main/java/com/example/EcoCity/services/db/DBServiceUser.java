@@ -1,7 +1,6 @@
 package com.example.EcoCity.services.db;
 
 import com.example.EcoCity.models.entities.User;
-import com.example.EcoCity.services.CrudDatabaseService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -12,5 +11,4 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public interface DBServiceUser extends CrudDatabaseService<User, Long>, UserDetailsService {
     User findByEmail(String email);
-    boolean existByEmail(String email);
 }

@@ -1,7 +1,6 @@
 package com.example.EcoCity.services.db;
 
 import com.example.EcoCity.models.entities.District;
-import com.example.EcoCity.services.CrudDatabaseService;
 
 /**
  * @author Tribushko Danil
@@ -11,10 +10,9 @@ import com.example.EcoCity.services.CrudDatabaseService;
  */
 public interface DBServiceDistrict extends CrudDatabaseService<District, Integer> {
     /**
-     * Проверка существует ли района с указанным названием в бд
+     * Обновление района
      *
-     * @param name название района
-     * @return находится ли район с указанным названием в бд
+     * @param district сущность района
      */
-    boolean existByName(String name);
+    void update(District district);
 }

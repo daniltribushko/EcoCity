@@ -1,5 +1,6 @@
 package com.example.EcoCity.services.db.imp;
 
+import com.example.EcoCity.exceptions.appeals.AppealTypeAlreadyExistException;
 import com.example.EcoCity.exceptions.appeals.AppealTypeByIdNotFoundException;
 import com.example.EcoCity.models.entities.AppealType;
 import com.example.EcoCity.repositories.AppealTypeRepository;
@@ -30,16 +31,21 @@ public class DBServiceAppealTypeImp implements DBServiceAppealType {
 
     @Override
     public void save(AppealType object) {
+        String name = object.getName();
+        if (appealTypeRepository.existsByName(name)){
+            throw new AppealTypeAlreadyExistException(name);
+        }
         appealTypeRepository.save(object);
     }
 
     @Override
-    public void delete(AppealType object) {
-        appealTypeRepository.delete(object);
+    public void delete(Integer id) {
+        AppealType appealType = findById(id);
+        appealTypeRepository.delete(appealType);
     }
 
     @Override
-    public boolean existByName(String name) {
-        return appealTypeRepository.existsByName(name);
+    public void update(AppealType appealType) {
+        appealTypeRepository.save(appealType);
     }
 }

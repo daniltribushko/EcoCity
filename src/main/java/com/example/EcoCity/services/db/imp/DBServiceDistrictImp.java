@@ -1,5 +1,6 @@
 package com.example.EcoCity.services.db.imp;
 
+import com.example.EcoCity.exceptions.districts.DistrictAlreadyExistException;
 import com.example.EcoCity.exceptions.districts.DistrictByIdNotFoundException;
 import com.example.EcoCity.models.entities.District;
 import com.example.EcoCity.repositories.DistrictRepository;
@@ -30,16 +31,21 @@ public class DBServiceDistrictImp implements DBServiceDistrict {
 
     @Override
     public void save(District object) {
+        String name = object.getName();
+        if (districtRepository.existsByName(name)){
+            throw new DistrictAlreadyExistException(name);
+        }
         districtRepository.save(object);
     }
 
     @Override
-    public void delete(District object) {
-        districtRepository.delete(object);
+    public void delete(Integer id) {
+        District district = findById(id);
+        districtRepository.delete(district);
     }
 
     @Override
-    public boolean existByName(String name) {
-        return districtRepository.existsByName(name);
+    public void update(District object) {
+        districtRepository.save(object);
     }
 }

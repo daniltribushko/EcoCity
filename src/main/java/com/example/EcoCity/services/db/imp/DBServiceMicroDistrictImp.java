@@ -1,5 +1,6 @@
 package com.example.EcoCity.services.db.imp;
 
+import com.example.EcoCity.exceptions.microdistricts.MicroDistrictAlreadyExistException;
 import com.example.EcoCity.exceptions.microdistricts.MicroDistrictByIdNotFoundException;
 import com.example.EcoCity.models.entities.MicroDistrict;
 import com.example.EcoCity.repositories.MicroDistrictRepository;
@@ -30,16 +31,21 @@ public class DBServiceMicroDistrictImp implements DBServiceMicroDistrict {
 
     @Override
     public void save(MicroDistrict object) {
+        String name = object.getName();
+        if (microDistrictRepository.existsByName(name)){
+            throw new MicroDistrictAlreadyExistException(name);
+        }
         microDistrictRepository.save(object);
     }
 
     @Override
-    public void delete(MicroDistrict object) {
-        microDistrictRepository.delete(object);
+    public void delete(Integer id) {
+        MicroDistrict microDistrict = findById(id);
+        microDistrictRepository.delete(microDistrict);
     }
 
     @Override
-    public boolean existByName(String name) {
-        return microDistrictRepository.existsByName(name);
+    public void update(MicroDistrict object) {
+        microDistrictRepository.save(object);
     }
 }

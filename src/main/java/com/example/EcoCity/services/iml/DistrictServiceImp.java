@@ -29,9 +29,6 @@ public class DistrictServiceImp implements DistrictService {
     @CheckUserAdmin
     public DistrictResponse create(String email, DistrictRequest request) {
         String name = request.getName();
-        if (dbServiceDistrict.existByName(name)){
-            throw new DistrictAlreadyExistException(name);
-        }
         District district = new District(name);
         dbServiceDistrict.save(district);
         return new DistrictResponse(district.getId(), district.getName(), null);
@@ -46,8 +43,7 @@ public class DistrictServiceImp implements DistrictService {
     @Override
     @CheckUserAdmin
     public void delete(String email, Integer id) {
-        District district = dbServiceDistrict.findById(id);
-        dbServiceDistrict.delete(district);
+        dbServiceDistrict.delete(id);
     }
 
     @Override
@@ -55,7 +51,7 @@ public class DistrictServiceImp implements DistrictService {
     public DistrictResponse update(String email, Integer id, DistrictRequest request) {
         District district = dbServiceDistrict.findById(id);
         district.setName(request.getName());
-        dbServiceDistrict.save(district);
+        dbServiceDistrict.update(district);
         return DistrictResponse.mapFromEntity(district);
     }
 }

@@ -33,9 +33,6 @@ public class AppealTypeServiceImp implements AppealTypeService {
     @CheckUserAdmin
     public AppealTypeResponse create(String email, AppealTypeRequest request) {
         String name = request.getName();
-        if (dbServiceAppealType.existByName(name)){
-            throw new AppealTypeAlreadyExistException(name);
-        }
         AppealType type = new AppealType(name);
         dbServiceAppealType.save(type);
         return new AppealTypeResponse(type.getId(), type.getName());
@@ -46,15 +43,14 @@ public class AppealTypeServiceImp implements AppealTypeService {
     public AppealTypeResponse update(String email, Integer id, AppealTypeRequest request) {
         AppealType type = dbServiceAppealType.findById(id);
         type.setName(request.getName());
-        dbServiceAppealType.save(type);
+        dbServiceAppealType.update(type);
         return AppealTypeResponse.mapFromEntity(type);
     }
 
     @Override
     @CheckUserAdmin
     public void delete(String email, Integer id) {
-        AppealType type = dbServiceAppealType.findById(id);
-        dbServiceAppealType.delete(type);
+        dbServiceAppealType.delete(id);
     }
 
     @Override

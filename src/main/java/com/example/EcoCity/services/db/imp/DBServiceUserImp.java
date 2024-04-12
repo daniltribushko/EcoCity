@@ -1,5 +1,6 @@
 package com.example.EcoCity.services.db.imp;
 
+import com.example.EcoCity.exceptions.users.UserAlreadyExistException;
 import com.example.EcoCity.exceptions.users.UserByEmailNotFoundException;
 import com.example.EcoCity.exceptions.users.UserByIdNotFoundException;
 import com.example.EcoCity.models.entities.User;
@@ -33,12 +34,17 @@ public class DBServiceUserImp implements DBServiceUser {
 
     @Override
     public void save(User object) {
+        String email = object.getUsername();
+        if (userRepository.existsByEmail(email)){
+            throw new UserAlreadyExistException(email);
+        }
         userRepository.save(object);
     }
 
     @Override
-    public void delete(User object) {
-        userRepository.delete(object);
+    public void delete(Long id) {
+        User user = findById(id);
+        userRepository.delete(user);
     }
 
     @Override
@@ -50,10 +56,5 @@ public class DBServiceUserImp implements DBServiceUser {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserByEmailNotFoundException(email));
-    }
-
-    @Override
-    public boolean existByEmail(String email) {
-        return userRepository.existsByEmail(email);
     }
 }

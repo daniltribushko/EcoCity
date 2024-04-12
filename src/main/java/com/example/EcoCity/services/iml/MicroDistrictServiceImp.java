@@ -39,9 +39,6 @@ public class MicroDistrictServiceImp implements MicroDistrictService {
     public DistrictResponse create(String email,
                                    CreateMicroDistrictRequest request) {
         String name = request.getName();
-        if (dbServiceMicroDistrict.existByName(name)) {
-            throw new MicroDistrictAlreadyExistException(name);
-        }
         Integer districtId = request.getDistrictId();
         District district = dbServiceDistrict.findById(districtId);
         MicroDistrict microDistrict = new MicroDistrict(name, district);
@@ -60,7 +57,7 @@ public class MicroDistrictServiceImp implements MicroDistrictService {
                                         MicroDistrictRequest request) {
         MicroDistrict microDistrict = dbServiceMicroDistrict.findById(id);
         microDistrict.setName(request.getName());
-        dbServiceMicroDistrict.save(microDistrict);
+        dbServiceMicroDistrict.update(microDistrict);
         return MicroDistrictResponse.mapFromEntity(microDistrict);
     }
 
@@ -73,8 +70,7 @@ public class MicroDistrictServiceImp implements MicroDistrictService {
     @CheckUserAdmin
     public void delete(String email,
                        Integer id) {
-        MicroDistrict microDistrict = dbServiceMicroDistrict.findById(id);
-        dbServiceMicroDistrict.delete(microDistrict);
+        dbServiceMicroDistrict.delete(id);
     }
 
     @Override
@@ -93,7 +89,7 @@ public class MicroDistrictServiceImp implements MicroDistrictService {
         microDistrict.setDistrict(newDistrict);
         microDistrictsFromNewDistrict.add(microDistrict);
 
-        dbServiceMicroDistrict.save(microDistrict);
+        dbServiceMicroDistrict.update(microDistrict);
 
         return new DistrictResponse(newDistrict.getId(),
                 newDistrict.getName(),

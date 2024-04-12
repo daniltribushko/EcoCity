@@ -53,9 +53,6 @@ public class AuthUserServiceImp implements AuthUserService {
     @Override
     public UserResponse signUp(SignUpRequest request) {
         String email = request.getEmail();
-        if (dbServiceUser.existByEmail(email)) {
-            throw new UserAlreadyExistException(email);
-        }
         String password = request.getPassword();
         String confirmPassword = request.getConfirmPassword();
         if (!Objects.equals(password, confirmPassword)){

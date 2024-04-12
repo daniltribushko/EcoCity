@@ -1,4 +1,4 @@
-package com.example.EcoCity.services;
+package com.example.EcoCity.services.db;
 
 /**
  * @param <T>  сущность для работы с бд
@@ -26,7 +26,7 @@ public interface CrudDatabaseService<T, ID> {
     /**
      * Удаление сущности из бд
      *
-     * @param object сущость
+     * @param id идентификатор сущности
      */
-    void delete(T object);
+    void delete(ID id);
 }

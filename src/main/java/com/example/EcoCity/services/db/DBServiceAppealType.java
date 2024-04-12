@@ -1,7 +1,6 @@
 package com.example.EcoCity.services.db;
 
 import com.example.EcoCity.models.entities.AppealType;
-import com.example.EcoCity.services.CrudDatabaseService;
 
 /**
  * @author Tribushko Danil
@@ -10,5 +9,10 @@ import com.example.EcoCity.services.CrudDatabaseService;
  * Сервис для работы с обращениями в бд
  */
 public interface DBServiceAppealType extends CrudDatabaseService<AppealType, Integer> {
-    boolean existByName(String name);
+    /**
+     * Обновление типа обращения
+     *
+     * @param appealType сущность типа обращений
+     */
+    void update(AppealType appealType);
 }
