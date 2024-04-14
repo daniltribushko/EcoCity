@@ -19,6 +19,8 @@ public class Appeal {
     private Long id;
     @Column(name = "text", nullable = false, length = 1000)
     private String text;
+    @Column(name = "address", nullable = false)
+    private String address;
     @Enumerated(EnumType.STRING)
     private AppealStatus status;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "appeal")
@@ -43,6 +45,7 @@ public class Appeal {
     public static class Builder {
         private Long id;
         private String text;
+        private String address;
         private AppealStatus status;
         private Set<AppealPhoto> photos;
         private AppealType type;
@@ -59,7 +62,10 @@ public class Appeal {
             this.text = text;
             return this;
         }
-
+        public Builder address(String address){
+            this.address = address;
+            return this;
+        }
         public Builder status(AppealStatus status){
             this.status = status;
             return this;
@@ -100,6 +106,7 @@ public class Appeal {
             appeal.district = this.district;
             appeal.microDistrict = this.microDistrict;
             appeal.author = this.author;
+            appeal.address = this.address;
 
             return appeal;
         }
@@ -167,5 +174,13 @@ public class Appeal {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

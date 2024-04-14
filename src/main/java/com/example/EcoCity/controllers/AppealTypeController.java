@@ -4,7 +4,7 @@ import com.example.EcoCity.models.dto.request.AppealTypeRequest;
 import com.example.EcoCity.models.dto.response.AppealTypeResponse;
 import com.example.EcoCity.models.dto.response.AppealsResponse;
 import com.example.EcoCity.models.dto.response.ExceptionResponse;
-import com.example.EcoCity.services.appeals.AppealTypeService;
+import com.example.EcoCity.services.AppealTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

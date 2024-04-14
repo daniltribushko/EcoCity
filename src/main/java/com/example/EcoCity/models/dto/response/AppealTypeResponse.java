@@ -3,8 +3,6 @@ package com.example.EcoCity.models.dto.response;
 import com.example.EcoCity.models.entities.AppealType;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.Set;
-
 /**
  * @author Tribushko Danil
  * @since 01.04.2024

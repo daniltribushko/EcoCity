@@ -47,7 +47,10 @@ public class OpenApiConfig {
                                 .description("Controller for work with districts"),
                         new Tag()
                                 .name("Appeal Type Controller")
-                                .description("Appeal Type Controller for work with appeals types")
+                                .description("Appeal Type Controller for work with appeals types"),
+                        new Tag()
+                                .name("Appeal Controller")
+                                .description("Appeal Controller fo work with appeals")
                 ));
     }
 }
