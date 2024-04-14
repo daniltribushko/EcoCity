@@ -1,6 +1,7 @@
 package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.aspects.annotations.CheckUserAppealAuthor;
+import com.example.EcoCity.exceptions.files.FileNotFoundException;
 import com.example.EcoCity.models.dto.request.AppealRequest;
 import com.example.EcoCity.models.dto.request.CreateAppealRequest;
 import com.example.EcoCity.models.dto.response.AppealResponse;
@@ -11,10 +12,11 @@ import com.example.EcoCity.services.FileService;
 import com.example.EcoCity.services.db.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -42,7 +44,7 @@ public class AppealServiceImp implements AppealService {
                             DBServiceDistrict dbServiceDistrict,
                             DBServiceMicroDistrict dbServiceMicroDistrict,
                             DBServiceAppealType dbServiceAppealType,
-                            FileService fileService){
+                            FileService fileService) {
         this.dbServiceAppeal = dbServiceAppeal;
         this.dbServiceUser = dbServiceUser;
         this.dbServiceDistrict = dbServiceDistrict;
@@ -80,10 +82,10 @@ public class AppealServiceImp implements AppealService {
         Appeal appeal = dbServiceAppeal.findById(id);
         String text = request.getText();
         String address = request.getAddress();
-        if (text != null){
+        if (text != null) {
             appeal.setText(text);
         }
-        if (address != null){
+        if (address != null) {
             appeal.setAddress(address);
         }
         dbServiceAppeal.save(appeal);
@@ -107,19 +109,73 @@ public class AppealServiceImp implements AppealService {
     public AppealResponse addAppealPhotos(String email, Long id, MultipartFile[] files) {
         Appeal appeal = dbServiceAppeal.findById(id);
         String fileName = email + "_appeal_";
-        Set<AppealPhoto> appealsPhoto = new HashSet<>();
+        Set<AppealPhoto> appealsPhoto = appeal.getPhotos();
         MultipartFile file;
         AppealPhoto appealPhoto;
-        for (int i = 0; i < files.length; i++){
-            file = files[i];
-            String appealPhotoFileName = fileName + (i+1);
+        for (MultipartFile multipartFile : files) {
+            file = multipartFile;
+            String appealPhotoFileName = fileName + (appealsPhoto.size() + 1);
             fileService.store(file, appealPhotoUrl, appealPhotoFileName);
-            appealPhoto = new AppealPhoto(appealPhotoFileName);
+            appealPhoto = new AppealPhoto(appealPhotoFileName + ".jpeg");
             appealPhoto.setAppeal(appeal);
             appealsPhoto.add(appealPhoto);
         }
         appeal.setPhotos(appealsPhoto);
         dbServiceAppeal.save(appeal);
         return AppealResponse.mapFromEntity(appeal);
+    }
+
+    @Override
+    public AppealResponse deleteFile(String email, Long id, String fileName) {
+        Appeal appeal = dbServiceAppeal.findById(id);
+        Set<AppealPhoto> appealPhotos = appeal.getPhotos();
+        String appealPhotoPath;
+        for (AppealPhoto appealPhoto : appealPhotos) {
+            appealPhotoPath = appealPhoto.getPhotoUrl();
+            if (Objects.equals(appealPhotoPath, fileName)) {
+                fileService.delete(appealPhotoUrl, fileName);
+                appealPhotos.remove(appealPhoto);
+                appealPhoto.setAppeal(null);
+                appeal.setPhotos(appealPhotos);
+                dbServiceAppeal.deleteAppealPhoto(appealPhoto);
+                dbServiceAppeal.save(appeal);
+                break;
+            }
+        }
+        return AppealResponse.mapFromEntity(appeal);
+    }
+
+    @Override
+    @CheckUserAppealAuthor
+    public AppealResponse deleteAllFiles(String email, Long id) {
+        Appeal appeal = dbServiceAppeal.findById(id);
+        Set<AppealPhoto> appealPhotos = appeal.getPhotos();
+        appeal.setPhotos(null);
+        for (AppealPhoto appealPhoto : appealPhotos) {
+            fileService.delete(appealPhotoUrl, appealPhoto.getPhotoUrl());
+            appealPhoto.setAppeal(null);
+            dbServiceAppeal.deleteAppealPhoto(appealPhoto);
+        }
+        dbServiceAppeal.save(appeal);
+        return AppealResponse.mapFromEntity(appeal);
+    }
+
+    @Override
+    public Resource getFile(String email, Long id, String fileName) {
+        Appeal appeal = dbServiceAppeal.findById(id);
+        String appealUrl;
+        Resource resource = null;
+        for (AppealPhoto appealPhoto : appeal.getPhotos()){
+            appealUrl = appealPhoto.getPhotoUrl();
+            if (Objects.equals(appealUrl, appealPhoto.getPhotoUrl())){
+                resource = fileService.getFile(appealPhotoUrl, appealUrl);
+                break;
+            }
+        }
+        if (resource != null && resource.isReadable()){
+            return resource;
+        }else {
+            throw new FileNotFoundException(fileName);
+        }
     }
 }

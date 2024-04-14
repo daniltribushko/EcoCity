@@ -19,6 +19,7 @@ bin/
 
 ### IntelliJ IDEA ###
 .idea
+src/main/resources/files/appeals
 *.iws
 *.iml
 *.ipr

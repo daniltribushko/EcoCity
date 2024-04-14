@@ -16,6 +16,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ import java.security.Principal;
 /**
  * @author Tribushko Danil
  * @since 14.04.2024
- *
+ * <p>
  * Контроллер для работы с обращениями
  */
 @RestController
@@ -136,13 +138,73 @@ public class AppealController {
     @PatchMapping(path = "/{id}/photos/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Secured("ROLE_USER")
     public ResponseEntity<AppealResponse> addAppealPhotos(Principal principal,
-                                                           @PathVariable
-                                                           @Min(value = 1, message = "Id can not be less than 1")
-                                                           Long id,
-                                                           @RequestPart("files")
-                                                           @NotEmpty
-                                                           MultipartFile[] files) {
+                                                          @PathVariable
+                                                          @Min(value = 1, message = "Id can not be less than 1")
+                                                          Long id,
+                                                          @RequestPart("files")
+                                                          @NotEmpty
+                                                          MultipartFile[] files) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(appealService.addAppealPhotos(principal.getName(), id, files));
     }
+
+    @Operation(summary = "Delete appeal photo", description = "Delete appeal photo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appeal photo deleted",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppealResponse.class))),
+            @ApiResponse(responseCode = "403", description = "User not appeal author",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Appeal not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @PatchMapping("/{id}/photos/delete")
+    public ResponseEntity<AppealResponse> deleteFile(Principal principal,
+                                                     @PathVariable
+                                                     @Min(value = 1, message = "Id can not be less than 1")
+                                                     Long id,
+                                                     @RequestParam("filename")
+                                                     String fileName) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(appealService.deleteFile(principal.getName(), id, fileName));
+    }
+
+    @Operation(summary = "Delete all appeal photos", description = "Delete all appeal photos from appeal by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "All appeal photos deleted",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppealResponse.class))),
+            @ApiResponse(responseCode = "403", description = "User not appeal author",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Appeal by id not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @PatchMapping("/{id}/photos/delete/all")
+    public ResponseEntity<AppealResponse> deleteAllFiles(Principal principal,
+                                                         @PathVariable
+                                                         @Min(value = 1, message = "Id can not be less than 1")
+                                                         Long id) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(appealService.deleteAllFiles(principal.getName(), id));
+    }
+
+    @GetMapping("/{id}/photos/{filename}")
+    public ResponseEntity<Resource> downloadAppealPhoto(Principal principal,
+                                                        @PathVariable
+                                                        @Min(value = 1, message = "Id can not be less than 1")
+                                                        Long id,
+                                                        @PathVariable(name = "filename")
+                                                        String fileName) {
+        Resource file = appealService.getFile(principal.getName(), id, fileName);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        String.format("attachment; filename=\"%s\"", file.getFilename()))
+                .body(file);
+    }
+
 }

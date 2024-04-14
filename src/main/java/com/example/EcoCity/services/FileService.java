@@ -1,5 +1,6 @@
 package com.example.EcoCity.services;
 
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -10,4 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface FileService {
     void store(MultipartFile file, String path, String fileName);
+    void delete(String path, String fileName);
+    Resource getFile(String path, String fileName);
 }

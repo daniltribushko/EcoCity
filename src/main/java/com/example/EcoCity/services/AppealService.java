@@ -3,6 +3,7 @@ package com.example.EcoCity.services;
 import com.example.EcoCity.models.dto.request.AppealRequest;
 import com.example.EcoCity.models.dto.request.CreateAppealRequest;
 import com.example.EcoCity.models.dto.response.AppealResponse;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -17,4 +18,7 @@ public interface AppealService {
     void delete(String email, Long id);
     AppealResponse findById(Long id);
     AppealResponse addAppealPhotos(String email, Long id, MultipartFile[] files);
+    AppealResponse deleteFile(String email, Long id, String fileName);
+    AppealResponse deleteAllFiles(String email, Long id);
+    Resource getFile(String email, Long id, String fileName);
 }
