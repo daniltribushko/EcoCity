@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * @author Tribushko Danil
  * @since 31.03.2024
  * <p>
- * Аннатация для проверки является ли пользователь администратором
+ * Аннотация для проверки является ли пользователь администратором
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

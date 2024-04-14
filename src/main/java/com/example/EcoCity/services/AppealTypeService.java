@@ -1,7 +1,6 @@
 package com.example.EcoCity.services;
 
 import com.example.EcoCity.models.dto.request.AppealTypeRequest;
-import com.example.EcoCity.models.dto.response.AppealResponse;
 import com.example.EcoCity.models.dto.response.AppealTypeResponse;
 import com.example.EcoCity.models.dto.response.AppealsResponse;
 import jakarta.validation.Valid;

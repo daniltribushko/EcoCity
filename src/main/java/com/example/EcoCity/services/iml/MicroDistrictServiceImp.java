@@ -1,7 +1,6 @@
 package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.aspects.annotations.CheckUserAdmin;
-import com.example.EcoCity.exceptions.microdistricts.MicroDistrictAlreadyExistException;
 import com.example.EcoCity.models.dto.request.CreateMicroDistrictRequest;
 import com.example.EcoCity.models.dto.request.MicroDistrictRequest;
 import com.example.EcoCity.models.dto.response.DistrictResponse;
