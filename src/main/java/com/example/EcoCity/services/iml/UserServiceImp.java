@@ -49,7 +49,6 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void delete(String email, Long id) {
-        User user = dbServiceUser.findById(id);
-        dbServiceUser.delete(user);
+        dbServiceUser.delete(id);
     }
 }

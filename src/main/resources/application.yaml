@@ -9,8 +9,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 10MB
 token:
   secret: ecgceybFHGJFAVfavxafARC435ivucqvuzuUWCWrcdyxav3124571xv=
 server:
   servlet:
     context-path: /api
+appeal:
+  photo:
+    path: /appeals/photos

@@ -1,7 +1,6 @@
 package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.aspects.annotations.CheckUserAdmin;
-import com.example.EcoCity.exceptions.appeals.AppealTypeAlreadyExistException;
 import com.example.EcoCity.models.dto.request.AppealTypeRequest;
 import com.example.EcoCity.models.dto.response.AppealResponse;
 import com.example.EcoCity.models.dto.response.AppealTypeResponse;

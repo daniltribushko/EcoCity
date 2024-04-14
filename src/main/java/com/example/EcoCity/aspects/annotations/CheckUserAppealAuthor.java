@@ -7,11 +7,12 @@ import java.lang.annotation.Target;
 
 /**
  * @author Tribushko Danil
- * @since 31.03.2024
+ * @since 12.04.2024
  * <p>
- * Аннотация для проверки является ли пользователь администратором
+ * Аннотация для проверки методов является ли пользователь автором обращения
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CheckUserAdmin {
+public @interface CheckUserAppealAuthor {
+
 }

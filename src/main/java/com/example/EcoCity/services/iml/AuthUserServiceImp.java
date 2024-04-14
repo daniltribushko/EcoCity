@@ -1,7 +1,6 @@
 package com.example.EcoCity.services.iml;
 
 import com.example.EcoCity.exceptions.users.PasswordNotConfirmedException;
-import com.example.EcoCity.exceptions.users.UserAlreadyExistException;
 import com.example.EcoCity.models.dto.request.SignInRequest;
 import com.example.EcoCity.models.dto.request.SignUpRequest;
 import com.example.EcoCity.models.dto.response.JwtTokenResponse;
