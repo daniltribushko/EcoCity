@@ -24,6 +24,9 @@ services:
     environment:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE=10MB
+      - SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE=10MB
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/eco_city_db
       - SERVER_SERVLET_CONTEXT-PATH=/api
       - TOKEN_SECRET=ecgceybFHGJFAVfavxafARC435ivucqvuzuUWCWrcdyxav3124571xv=
+      - APPEAL_PHOTO_PATH=/appeals/photos
