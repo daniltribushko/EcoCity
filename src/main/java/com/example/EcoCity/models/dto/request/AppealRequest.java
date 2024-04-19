@@ -16,9 +16,9 @@ public class AppealRequest {
     private String text;
 
     @Schema(description = "Appeal address",
-    name = "address",
-    type = "string",
-    example = "Home 1 street 1 kv 1")
+            name = "address",
+            type = "string",
+            example = "Home 1 street 1 kv 1")
     private String address;
 
     public AppealRequest(String text, String address) {
