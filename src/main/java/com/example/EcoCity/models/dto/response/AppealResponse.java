@@ -1,9 +1,6 @@
 package com.example.EcoCity.models.dto.response;
 
-import com.example.EcoCity.models.entities.Appeal;
-import com.example.EcoCity.models.entities.AppealPhoto;
-import com.example.EcoCity.models.entities.District;
-import com.example.EcoCity.models.entities.MicroDistrict;
+import com.example.EcoCity.models.entities.*;
 import com.example.EcoCity.models.enums.AppealStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -51,7 +48,10 @@ public class AppealResponse {
     private MicroDistrictResponse microDistrict;
 
     private UserResponse author;
+
     private List<AppealPhotoResponse> appealPhotos;
+
+    private AppealRejectCommentResponse comment;
 
     public Builder builder() {
         return new Builder();
@@ -67,6 +67,8 @@ public class AppealResponse {
         private UserResponse author;
         private String address;
         private List<AppealPhotoResponse> appealPhotos;
+
+        private AppealRejectCommentResponse comment;
 
         public Builder id(Long id) {
             this.id = id;
@@ -113,6 +115,11 @@ public class AppealResponse {
             return this;
         }
 
+        public Builder comment(AppealRejectCommentResponse comment){
+            this.comment = comment;
+            return this;
+        }
+
         public AppealResponse build() {
             AppealResponse appeal = new AppealResponse();
             appeal.id = this.id;
@@ -124,6 +131,7 @@ public class AppealResponse {
             appeal.author = this.author;
             appeal.address = this.address;
             appeal.appealPhotos = this.appealPhotos;
+            appeal.comment = this.comment;
             return appeal;
         }
     }
@@ -164,10 +172,15 @@ public class AppealResponse {
         return appealPhotos;
     }
 
+    public AppealRejectCommentResponse getComment() {
+        return comment;
+    }
+
     public static AppealResponse mapFromEntity(Appeal appeal) {
         District district = appeal.getDistrict();
         MicroDistrict microDistrict = appeal.getMicroDistrict();
         Set<AppealPhoto> appeals = appeal.getPhotos();
+        AppealRejectComment comment = appeal.getComment();
         return new AppealResponse()
                 .builder()
                 .id(appeal.getId())
@@ -178,6 +191,7 @@ public class AppealResponse {
                 .microDistrict(new MicroDistrictResponse(microDistrict.getId(), microDistrict.getName()))
                 .author(UserResponse.mapFromEntity(appeal.getAuthor()))
                 .address(appeal.getAddress())
+                .comment(comment != null ? AppealRejectCommentResponse.mapFromEntity(comment) : null)
                 .appealPhotos(appeals != null ? appeal.getPhotos()
                         .stream()
                         .map(o -> new AppealPhotoResponse(o.getPhotoUrl()))

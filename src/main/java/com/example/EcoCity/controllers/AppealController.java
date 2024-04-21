@@ -1,5 +1,9 @@
 package com.example.EcoCity.controllers;
 
+import com.example.EcoCity.exceptions.appeals.AppealByIdNotFoundException;
+import com.example.EcoCity.exceptions.users.AdminChangeHisAppealStatusException;
+import com.example.EcoCity.exceptions.users.UserNotAdminException;
+import com.example.EcoCity.models.dto.request.AppealRejectCommentRequest;
 import com.example.EcoCity.models.dto.request.AppealRequest;
 import com.example.EcoCity.models.dto.request.CreateAppealRequest;
 import com.example.EcoCity.models.dto.response.AppealResponse;
@@ -207,4 +211,62 @@ public class AppealController {
                 .body(file);
     }
 
+    @Operation(summary = "Accept appeal", description = "Secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appeal accepted",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppealResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Appeal by id not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "409", description = "Admin can not change his appeal  status",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "403", description = "User not admin",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "422", description = "Validation exception",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @Secured("ROLE_ADMIN")
+    @PatchMapping("/{id}/accept")
+    public ResponseEntity<AppealResponse> accept(Principal principal,
+                                                 @PathVariable
+                                                 @Min(value = 1, message = "Id can not be blank")
+                                                 Long id) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(appealService.accept(principal.getName(), id));
+    }
+
+    @Operation(summary = "Rejected appeal", description = "Secured by admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appeal rejected",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppealResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Appeal by id not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "409", description = "Admin can not change his appeal status",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "403", description = "User not admin",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "422", description = "Validation exception",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @Secured("ROLE_ADMIN")
+    @PatchMapping("/{id}/reject")
+    public ResponseEntity<AppealResponse> reject(Principal principal,
+                                                 @PathVariable
+                                                 @Min(value = 1, message = "Id can not be blank")
+                                                 Long id,
+                                                 @Valid
+                                                 @RequestBody
+                                                 AppealRejectCommentRequest request) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(appealService.reject(principal.getName(), id, request));
+    }
 }

@@ -1,8 +1,14 @@
 package com.example.EcoCity.services;
 
+import com.example.EcoCity.models.dto.request.AppealRejectCommentRequest;
 import com.example.EcoCity.models.dto.request.AppealRequest;
 import com.example.EcoCity.models.dto.request.CreateAppealRequest;
 import com.example.EcoCity.models.dto.response.AppealResponse;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,12 +19,69 @@ import org.springframework.web.multipart.MultipartFile;
  * Сервис для работы с обращениями
  */
 public interface AppealService {
-    AppealResponse create(String email, CreateAppealRequest request);
-    AppealResponse update(String email, Long id, AppealRequest request);
-    void delete(String email, Long id);
-    AppealResponse findById(Long id);
-    AppealResponse addAppealPhotos(String email, Long id, MultipartFile[] files);
-    AppealResponse deleteFile(String email, Long id, String fileName);
-    AppealResponse deleteAllFiles(String email, Long id);
-    Resource getFile(String email, Long id, String fileName);
+    AppealResponse create(@Email
+                          @Size(min = 7, message = "Email must be contain 7 characters")
+                          String email,
+                          @Valid
+                          CreateAppealRequest request);
+
+    AppealResponse update(@Email
+                          @Size(min = 7, message = "Email must be contain 7 characters")
+                          String email,
+                          @Min(value = 1, message = "Id can not be less than 1")
+                          Long id,
+                          @Valid
+                          AppealRequest request);
+
+    void delete(@Email
+                @Size(min = 7, message = "Email must be contain 7 characters")
+                String email,
+                @Min(value = 1, message = "Id can not be less than 1")
+                Long id);
+
+    AppealResponse findById(@Min(value = 1, message = "Id can not be less than 1")
+                            Long id);
+
+    AppealResponse addAppealPhotos(@Email
+                                   @Size(min = 7, message = "Email must be contain 7 characters")
+                                   String email,
+                                   @Min(value = 1, message = "Id can not be less than 1")
+                                   Long id,
+                                   MultipartFile[] files);
+
+    AppealResponse deleteFile(@Email
+                              @Size(min = 7, message = "Email must be contain 7 characters")
+                              String email,
+                              @Min(value = 1, message = "Id can not be less than 1")
+                              Long id,
+                              @NotBlank(message = "fileName can not be blank")
+                              String fileName);
+
+    AppealResponse deleteAllFiles(@Email
+                                  @Size(min = 7, message = "Email must be contain 7 characters")
+                                  String email,
+                                  @Min(value = 1, message = "Id can not be less than 1")
+                                  Long id);
+
+    Resource getFile(@Email
+                     @Size(min = 7, message = "Email must be contain 7 characters")
+                     String email,
+                     @Min(value = 1, message = "Id can not be less than 1")
+                     Long id,
+                     @NotBlank(message = "fileName can not be blank")
+                     String fileName);
+
+    AppealResponse reject(@Email
+                          @Size(min = 7, message = "Email must be contain 7 characters")
+                          String email,
+                          @Min(value = 1, message = "Id can not be less than 1")
+                          Long id,
+                          @Valid
+                          AppealRejectCommentRequest request);
+
+    AppealResponse accept(@Email
+                          @Size(min = 7, message = "Email must be contain 7 characters")
+                          String email,
+                          @Min(value = 1, message = "Id can not be blank")
+                          Long id);
 }

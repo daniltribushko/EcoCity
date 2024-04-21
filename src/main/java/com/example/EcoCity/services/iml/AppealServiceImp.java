@@ -1,7 +1,9 @@
 package com.example.EcoCity.services.iml;
 
+import com.example.EcoCity.aspects.annotations.CheckAdminNotAppealAuthor;
 import com.example.EcoCity.aspects.annotations.CheckUserAppealAuthor;
 import com.example.EcoCity.exceptions.files.FileNotFoundException;
+import com.example.EcoCity.models.dto.request.AppealRejectCommentRequest;
 import com.example.EcoCity.models.dto.request.AppealRequest;
 import com.example.EcoCity.models.dto.request.CreateAppealRequest;
 import com.example.EcoCity.models.dto.response.AppealResponse;
@@ -16,6 +18,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -177,5 +180,25 @@ public class AppealServiceImp implements AppealService {
         }else {
             throw new FileNotFoundException(fileName);
         }
+    }
+
+    @Override
+    @CheckAdminNotAppealAuthor
+    public AppealResponse reject(String email, Long id, AppealRejectCommentRequest request) {
+        Appeal appeal = dbServiceAppeal.findById(id);
+        AppealRejectComment comment = new AppealRejectComment(request.getMessage(), LocalDateTime.now(), appeal);
+        appeal.setStatus(AppealStatus.REJECTED);
+        appeal.setComment(comment);
+        dbServiceAppeal.save(appeal);
+        return AppealResponse.mapFromEntity(appeal);
+    }
+
+    @Override
+    @CheckAdminNotAppealAuthor
+    public AppealResponse accept(String email, Long id) {
+        Appeal appeal = dbServiceAppeal.findById(id);
+        appeal.setStatus(AppealStatus.ACCEPTED);
+        dbServiceAppeal.save(appeal);
+        return AppealResponse.mapFromEntity(appeal);
     }
 }

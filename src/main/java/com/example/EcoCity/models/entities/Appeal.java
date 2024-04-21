@@ -38,6 +38,8 @@ public class Appeal {
     @JoinColumn(name = "author_id")
     private User author;
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "appeal")
+    private AppealRejectComment comment;
     public Builder builder(){
         return new Builder();
     }
@@ -52,6 +54,7 @@ public class Appeal {
         private District district;
         private MicroDistrict microDistrict;
         private User author;
+        private AppealRejectComment comment;
 
         public Builder id(Long id){
             this.id = id;
@@ -96,6 +99,11 @@ public class Appeal {
             return this;
         }
 
+        public Builder message(AppealRejectComment comment){
+            this.comment = comment;
+            return this;
+        }
+
         public Appeal build(){
             Appeal appeal = new Appeal();
             appeal.id = this.id;
@@ -107,6 +115,7 @@ public class Appeal {
             appeal.microDistrict = this.microDistrict;
             appeal.author = this.author;
             appeal.address = this.address;
+            appeal.comment = this.comment;
 
             return appeal;
         }
@@ -182,5 +191,13 @@ public class Appeal {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public AppealRejectComment getComment() {
+        return comment;
+    }
+
+    public void setComment(AppealRejectComment comment) {
+        this.comment = comment;
     }
 }

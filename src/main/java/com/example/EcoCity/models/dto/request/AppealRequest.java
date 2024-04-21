@@ -1,6 +1,7 @@
 package com.example.EcoCity.models.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author Tribushko Danil
@@ -13,12 +14,14 @@ public class AppealRequest {
             name = "text",
             type = "string",
             example = "Example text")
+    @NotBlank(message = "Text can not be blank")
     private String text;
 
     @Schema(description = "Appeal address",
             name = "address",
             type = "string",
             example = "Home 1 street 1 kv 1")
+    @NotBlank(message = "Address can not be blank")
     private String address;
 
     public AppealRequest(String text, String address) {
