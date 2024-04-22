@@ -8,6 +8,6 @@ import com.example.EcoCity.exceptions.GlobalAppException;
  */
 public class UserAlreadyExistException extends GlobalAppException {
     public UserAlreadyExistException(String email) {
-        super(409, "User: " + email + " not found");
+        super(409, "User: " + email + " already exist");
     }
 }

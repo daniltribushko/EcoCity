@@ -83,6 +83,8 @@ public class AuthUserServiceImp implements AuthUserService {
             throw new BadCredentialsException("Wrong email or password");
         }
         User user = dbServiceUser.findByEmail(email);
+        user.setLastOnlineDate(LocalDateTime.now());
+        dbServiceUser.update(user);
         return new JwtTokenResponse(jwtTokenService.createToken(user));
     }
 }
