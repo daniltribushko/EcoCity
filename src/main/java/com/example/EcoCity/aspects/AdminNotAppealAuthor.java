@@ -32,7 +32,7 @@ public class AdminNotAppealAuthor {
     }
 
     @Before(value = "@annotation(com.example.EcoCity.aspects.annotations.CheckAdminNotAppealAuthor) && " +
-            "args(email,id)",argNames = "email,id")
+            "args(email,id,..)",argNames = "email,id")
     public void checkAdminNotAppealAuthor(String email, Long id){
         User user = dbServiceUser.findByEmail(email);
         Appeal appeal = dbServiceAppeal.findById(id);

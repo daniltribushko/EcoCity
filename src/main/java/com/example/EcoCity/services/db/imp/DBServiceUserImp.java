@@ -86,7 +86,7 @@ public class DBServiceUserImp implements DBServiceUser {
                                             LocalDateTime createDate,
                                             LocalDateTime lastDateOnOnline,
                                             String role) {
-        return userPaginationRepository.findAll(PageRequest.of(page, page))
+        return userPaginationRepository.findAll(PageRequest.of(page, perPage))
                 .stream()
                 .filter(u -> (recordState == null || Objects.equals(u.getRecordState(), recordState)) &&
                         (createDate == null || Objects.equals(u.getCreateDate(), createDate)) &&

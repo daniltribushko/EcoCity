@@ -2,10 +2,13 @@ package com.example.EcoCity.services;
 
 import com.example.EcoCity.models.dto.request.UpdateUserRequest;
 import com.example.EcoCity.models.dto.response.UserResponse;
+import com.example.EcoCity.models.dto.response.UsersResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+
+import java.time.LocalDateTime;
 
 /**
  * @author Tribushko Danil
@@ -45,4 +48,23 @@ public interface UserService {
                 @Size(min = 7, message = "Email must be contain 7 characters")
                 String email,
                 Long id);
+
+    /**
+     * Получение всех пользователей
+     *
+     * @param email электронный
+     * @return нескольк опользователей в dto
+     */
+    UsersResponse findAll(@Email
+                          @Size(min = 7, message = "Email must be contain 7 characters")
+                          String email);
+
+    UsersResponse findAllWithPagination(@Min(value = 0, message = "Page can not be less than 0")
+                                        Integer page,
+                                        @Min(value = 1, message = "Per page can not be less than 1")
+                                        Integer perPage,
+                                        String recordState,
+                                        LocalDateTime createDate,
+                                        LocalDateTime lastDateOnOnline,
+                                        String role);
 }
