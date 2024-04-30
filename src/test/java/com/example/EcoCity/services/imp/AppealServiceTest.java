@@ -117,4 +117,14 @@ class AppealServiceTest {
         Assertions.assertEquals(expected.getText(), response.getText());
         Assertions.assertEquals(expected.getStatus(), response.getStatus());
     }
+
+    // TODO
+    @Test()
+    @Order(4)
+    void acceptAppeal(){}
+
+    // TODO
+    @Test
+    @Order(5)
+    void rejectAppeal(){}
 }
