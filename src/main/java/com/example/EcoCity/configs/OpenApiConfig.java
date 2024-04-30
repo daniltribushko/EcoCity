@@ -53,6 +53,10 @@ public class OpenApiConfig {
                                 .description("Controller for work with appeals"),
                         new Tag()
                                 .name("User Controller")
-                                .description("Controller for work with users")));
+                                .description("Controller for work with users"),
+                        new Tag()
+                                .name("Event Type Controller")
+                                .description("Controller for work with event type")
+                ));
     }
 }
