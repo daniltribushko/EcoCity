@@ -39,6 +39,7 @@ public class EventTypeServiceImp implements EventTypeService {
                                     Integer id, EventTypeRequest request) {
         EventType type = dbServiceEventType.findById(id);
         type.setName(request.getName());
+        dbServiceEventType.update(type);
         return EventTypeResponse.mapFromEntity(type);
     }
 
