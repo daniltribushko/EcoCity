@@ -8,6 +8,8 @@ import com.example.EcoCity.services.db.DBServiceEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Tribushko Danil
  * @since 01.05.2024
@@ -47,5 +49,10 @@ public class DBServiceEventImp implements DBServiceEvent {
     @Override
     public void update(Event event) {
         eventRepository.save(event);
+    }
+
+    @Override
+    public List<Event> findAll() {
+        return eventRepository.findAll();
     }
 }
