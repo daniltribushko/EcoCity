@@ -51,11 +51,11 @@ public class SignUpRequest {
 
     @Schema(
             description = "User confirm password",
-            name = "confirm password",
+            name = "confirm_password",
             type = "string",
             example = "12345678",
             minLength = 8)
-    @JsonProperty(value = "confirm password")
+    @JsonProperty(value = "confirm_password")
     @NotBlank(message = "Confirm password can not be blank")
     @Size(min = 8, message = "Minimum confirm password length should be 8 ")
     private String confirmPassword;
