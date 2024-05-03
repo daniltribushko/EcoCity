@@ -37,4 +37,16 @@ public interface EventService {
                 String email,
                 @Min(value = 1, message = "Id can not be less than 1")
                 Long id);
+
+    EventResponse join(@Email
+                       @Size(min = 7, message = "Email must be contain 7 characters")
+                       String email,
+                       @Min(value = 1, message = "Id can not be less than 1")
+                       Long id);
+
+    EventResponse leave(@Email
+                        @Size(min = 7, message = "Email must be contain 7 characters")
+                        String email,
+                        @Min(value = 1, message = "Id can not be less than 1")
+                        Long id);
 }

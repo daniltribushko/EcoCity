@@ -56,7 +56,7 @@ public class User implements UserDetails {
     private Set<Appeal> appeals;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
     private Set<Event> events;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE}, mappedBy = "participants")
     private Set<Event> eventParticipants;
     public static class Builder{
         private Long id;

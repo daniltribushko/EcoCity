@@ -3,15 +3,14 @@ package com.example.EcoCity.services.iml;
 import com.example.EcoCity.aspects.annotations.CheckUserEventAuthor;
 import com.example.EcoCity.aspects.annotations.CheckUserOrganization;
 import com.example.EcoCity.exceptions.events.EndDateBeforeStartDateException;
+import com.example.EcoCity.exceptions.events.EventHasMaxParticipantsException;
 import com.example.EcoCity.exceptions.events.ParticipantsMoreMaxCountException;
 import com.example.EcoCity.exceptions.events.StartDateAfterEndDateException;
+import com.example.EcoCity.exceptions.users.UserAlreadyParticipantException;
 import com.example.EcoCity.models.dto.request.CreateEventRequest;
 import com.example.EcoCity.models.dto.request.EventRequest;
 import com.example.EcoCity.models.dto.response.EventResponse;
-import com.example.EcoCity.models.entities.District;
-import com.example.EcoCity.models.entities.Event;
-import com.example.EcoCity.models.entities.EventType;
-import com.example.EcoCity.models.entities.MicroDistrict;
+import com.example.EcoCity.models.entities.*;
 import com.example.EcoCity.models.enums.EventStatus;
 import com.example.EcoCity.services.EventService;
 import com.example.EcoCity.services.db.*;
@@ -19,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Tribushko Danil
@@ -157,5 +158,49 @@ public class EventServiceImp implements EventService {
     @CheckUserEventAuthor
     public void delete(String email, Long id) {
         dbServiceEvent.delete(id);
+    }
+
+    @Override
+    public EventResponse join(String email, Long id) {
+        User user = dbServiceUser.findByEmail(email);
+        Event event = dbServiceEvent.findById(id);
+
+        Set<Event> events = user.getEventParticipants();
+        Set<User> participants = event.getParticipants();
+
+        if (Objects.equals(events.size(), event.getMaxCountParticipant())){
+            throw new EventHasMaxParticipantsException(id);
+        }
+
+        participants.stream()
+                .filter(p -> Objects.equals(p.getUsername(), email))
+                .findFirst()
+                .orElseThrow(() -> new UserAlreadyParticipantException(email, id));
+
+        events.add(event);
+        participants.add(user);
+
+        user.setEventParticipants(events);
+        event.setParticipants(participants);
+
+        dbServiceEvent.update(event);
+
+        return EventResponse.mapFromEntity(event);
+    }
+
+    @Override
+    public EventResponse leave(String email, Long id) {
+        User user = dbServiceUser.findByEmail(email);
+        Event event = dbServiceEvent.findById(id);
+
+        Set<User> participants = event.getParticipants();
+        Set<Event> events = user.getEventParticipants();
+
+        participants.remove(user);
+        events.remove(event);
+
+        dbServiceEvent.update(event);
+
+        return EventResponse.mapFromEntity(event);
     }
 }

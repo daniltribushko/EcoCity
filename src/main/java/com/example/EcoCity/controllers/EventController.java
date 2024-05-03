@@ -137,4 +137,44 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(eventService.findById(id));
     }
+
+    @Operation(summary = "Join in event", description = "join user in event")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User joined in event",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EventResponse.class))),
+            @ApiResponse(responseCode = "404", description = "User by email or event by id not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = "409", description = "Event participants if full or user already participant",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @PatchMapping("/{id}/join")
+    @Secured("ROLE_USER")
+    public ResponseEntity<EventResponse> join(Principal principal,
+                                              @PathVariable
+                                              @Min(value = 1, message = "Id can not be less than 1")
+                                              Long id) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(eventService.join(principal.getName(), id));
+    }
+
+    @Operation(summary = "Leave from event", description = "leave user from event")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User leaved event",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EventResponse.class))),
+            @ApiResponse(responseCode = "404", description = "User by email or event by id not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @PatchMapping("/{id}/leave")
+    public ResponseEntity<EventResponse> leave(Principal principal,
+                                               @PathVariable
+                                               @Min(value = 1, message = "Id can not be less than 1")
+                                               Long id) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(eventService.leave(principal.getName(), id));
+    }
 }
