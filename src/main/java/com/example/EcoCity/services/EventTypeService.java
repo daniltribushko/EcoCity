@@ -19,7 +19,6 @@ public interface EventTypeService {
                              @Size(min = 7, message = "Email must be contain 7 characters")
                              String email,
                              @Valid
-                             @RequestBody
                              EventTypeRequest request);
 
     EventTypeResponse update(@Email
@@ -28,7 +27,6 @@ public interface EventTypeService {
                              @Min(value = 1, message = "Id can not be less than 1")
                              Integer id,
                              @Valid
-                             @RequestBody
                              EventTypeRequest request);
 
     void delete(@Email

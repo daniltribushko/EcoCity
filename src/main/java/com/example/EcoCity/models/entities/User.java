@@ -52,8 +52,12 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "author")
     private Set<Appeal> appeals;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
+    private Set<Event> events;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    private Set<Event> eventParticipants;
     public static class Builder{
         private Long id;
         private String email;
@@ -65,6 +69,8 @@ public class User implements UserDetails {
         private LocalDateTime lastOnlineDate;
         private Set<Role> roles;
         private Set<Appeal> appeals;
+        private Set<Event> events;
+        private Set<Event> eventParticipants;
 
         private Builder(){}
         public Builder id(Long id){
@@ -117,6 +123,16 @@ public class User implements UserDetails {
             return this;
         }
 
+        public Builder events(Set<Event> events){
+            this.events = events;
+            return this;
+        }
+
+        public Builder eventParticipants(Set<Event> eventParticipants){
+            this.eventParticipants = eventParticipants;
+            return this;
+        }
+
         public User build(){
             User user = new User();
             user.id = this.id;
@@ -129,6 +145,8 @@ public class User implements UserDetails {
             user.lastOnlineDate = this.lastOnlineDate;
             user.roles = this.roles;
             user.appeals = this.appeals;
+            user.events = this.events;
+            user.eventParticipants = this.eventParticipants;
             return user;
         }
     }
@@ -246,10 +264,39 @@ public class User implements UserDetails {
         this.appeals = appeals;
     }
 
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
+    }
+
+    public Set<Event> getEventParticipants() {
+        return eventParticipants;
+    }
+
+    public void setEventParticipants(Set<Event> eventParticipants) {
+        this.eventParticipants = eventParticipants;
+    }
+
     public boolean isAdmin(){
         boolean result = false;
         for (Role role : roles){
             if (Objects.equals(role.getName(), "ADMIN")){
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public boolean isOrganization(){
+        boolean result = false;
+        String roleName;
+        for (Role role : roles){
+            roleName = role.getName();
+            if (Objects.equals(roleName, "ADMIN") || Objects.equals(roleName, "ORGANIZATION")){
                 result = true;
                 break;
             }

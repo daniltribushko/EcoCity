@@ -2,6 +2,14 @@ package com.example.EcoCity.models.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
+/**
+ * @author Tribushko Danil
+ * @since 03.05.2024
+ * <p>
+ * Сущность типа мероприятия
+ */
 @Entity
 @Table(name = "events_type")
 public class EventType {
@@ -12,11 +20,15 @@ public class EventType {
     @Column(name = "name", nullable = false)
     private String name;
 
-    public EventType(String name){
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "type")
+    private Set<Event> events;
+
+    public EventType(String name) {
         this.name = name;
     }
 
-    public EventType(){}
+    public EventType() {
+    }
 
     public Integer getId() {
         return id;
@@ -32,5 +44,13 @@ public class EventType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
     }
 }
